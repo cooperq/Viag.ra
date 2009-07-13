@@ -1,0 +1,21 @@
+!!! XML
+!!!
+
+%html
+  %head
+    %title viag.ra the URL Lengthener
+    %link{ :href => '/css/reset.css', :type=>'text/css', :rel=>'stylesheet' }
+    %link{ :href => '/css/style.css', :type=>'text/css', :rel=>'stylesheet' }
+
+  %body
+    #container
+      #main
+      %h1 Tired of having such a tiny URL, can't please your partners with such a tiny URL.  Try VIAG.RA the URL lengthener!
+      %form{ :action => 'lengthify', :method=>'POST' }
+        %input{ :type => 'text', :name=>'original_url', :value=>params[:original_url] }
+        %button{ :type => 'submit', :name=>'submit', :value=>'Lengthen My URL!' }
+
+      =yield
+
+      #footer
+
