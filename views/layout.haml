@@ -10,12 +10,18 @@
   %body
     #container
       #main
-      %h1 Tired of having such a tiny URL, can't please your partners with such a tiny URL.  Try VIAG.RA the URL lengthener!
-      %form{ :action => 'lengthify', :method=>'POST' }
-        %input{ :type => 'text', :name=>'original_url', :value=>params[:original_url] }
-        %button{ :type => 'submit', :name=>'submit', :value=>'Lengthen My URL!' }
+        .lengthen-form
+          %form{ :action => 'lengthify', :method=>'POST' }
+            %input{ :type => 'text', :name=>'original_url', :value=>params[:original_url] }
+            %button{ :type => 'submit', :name=>'submit', :src=>'/img/pill.jpg' }
 
-      =yield
-
+      #content
+        =yield
       #footer
-
+        .contact
+          Email: cooperqATcooperqD0Tcom
+        .source
+          %a{ :href=>'http://github.com/cooperq/Viag.ra/tree/master' }
+            Get the source code!
+        .duck 
+          No ducks down here
