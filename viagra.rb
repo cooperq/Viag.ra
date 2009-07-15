@@ -25,8 +25,8 @@ get '/*' do
     @temp << (LOOKUP_TABLE.index(c.chr) + 32).chr
   end
   strip = true
-  @temp.each_char do |c|
-    @original_url << c if strip
+  @temp.each_byte do |c|
+    @original_url << c.chr if strip
     strip = !strip
   end
   haml "%div= @original_url"
