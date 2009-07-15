@@ -1,0 +1,11 @@
+VIAG.RA -- The URL Lengthener
+
+Viagra is a URL lengthener that I created because I'm sick of URL shorteners, they are popping up like cancer on the internet. And if one goes down you have a bunch of dead links.
+So I wrote a url lengthener to counter this problem.  And I'm making it open source so that if the url ever goes down, people can still reverse engineer the links.
+
+TODO:
+----------
+* logo for the top
+* copy for why the hell I did this
+* bug with 'q' and query strings
+* unit tests

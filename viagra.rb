@@ -13,7 +13,7 @@ post '/lengthify' do
   @long_url = ''
   @original_url = params[:original_url]
   @original_url.each_byte do |c|
-    @long_url << transliterate(c - 32)
+    @long_url << transliterate(c)
   end
   haml :lengthify
 end
@@ -22,19 +22,20 @@ get '/*' do
   @long_url = params[:splat]
   @original_url, @temp = '', ''
   @long_url.first.each_byte do |c|
-    @temp << (LOOKUP_TABLE.index(c.chr) + 32).chr
+    @temp << (LOOKUP_TABLE.index(c.chr) + 32).chr #find the index of the returned character and add 32 and that is the decimal ascii code for our char.
   end
   strip = true
   @temp.each_byte do |c|
     @original_url << c.chr if strip
     strip = !strip
   end
-  haml "%div= @original_url"
+  (@original_url = 'http://' + @original_url) unless @original_url.match(/^https?:\/\//)
   redirect @original_url, 307
 end
 
 def transliterate(c)
-  LOOKUP_TABLE[c] + LOOKUP_TABLE[LOOKUP_TABLE.length % c]    
+  puts "#{c} #{c.chr} => #{LOOKUP_TABLE[c-32]}"
+  LOOKUP_TABLE[c-32] + LOOKUP_TABLE[LOOKUP_TABLE.length & c]    
 end
 
 LOOKUP_TABLE = 
