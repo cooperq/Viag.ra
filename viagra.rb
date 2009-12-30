@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'chars'
 require 'haml'
+require 'cgi'
 
 
 get '/' do
@@ -21,9 +22,10 @@ end
 get '/*' do
   @long_url = params[:splat]
   @original_url, @temp = '', ''
-  @long_url.first.each_byte do |c|
-    @temp << (LOOKUP_TABLE.index(c.chr) + 32).chr #find the index of the returned character and add 32 and that is the decimal ascii code for our char.
-  end
+  @long_url.first.each_char do |c|
+    @temp << REVERSE_LOOKUP_TABLE[c] 
+    puts "#{c} => #{REVERSE_LOOKUP_TABLE[c]}"
+  end 
   strip = true
   @temp.each_byte do |c|
     @original_url << c.chr if strip
@@ -34,11 +36,28 @@ get '/*' do
 end
 
 def transliterate(c)
-  puts "#{c} #{c.chr} => #{LOOKUP_TABLE[c-32]}"
-  LOOKUP_TABLE[c-32] + LOOKUP_TABLE[LOOKUP_TABLE.length & c]    
+  puts "#{c} #{c.chr} => #{LOOKUP_TABLE[c.chr]}"
+  LOOKUP_TABLE[c.chr] + LOOKUP_TABLE[(c % LOOKUP_TABLE.size + 32).chr]    
 end
 
-LOOKUP_TABLE = 
-["!", "V", "x", "|", ";", "m", "/", "c", "L", "=", "Z", "g", "l", "W", "Q", "q", "4", "p", "<", "7", "u", "K", "8", "2", "k", "t", "e", "r", "*", "n", "j", "}", ")", "]", "s", "w", "I", "@", "v", "O", "3", "d", "0", ":", "o", "`", ",", "\\", "F", "Y", "D", "(", "^", ">", " ", "B", "_", "A", "{", "X", "z", "5", "6", "-", "H", "i", "N", "R", "S", "'", "b", "M", "T", "y", "~", "G", "P", "a", "9", "1", ".", "+", "E", "J", "\"", "$", "C", "f", "[", "h", "U"]
+def should_be_encoded(character)
+  ['$', '+', ',', ';', '?', '#', '@', '/', '&', ':', '='].include? character
+end
 
+letters = Array.new
+(32..126).each do |c|
+  letters.push c.chr
+end
+letters_random = letters.shuffle
 
+LOOKUP_TABLE = {}
+letters.each_with_index {|k,i| LOOKUP_TABLE[k] = letters_random[i]}
+REVERSE_LOOKUP_TABLE = LOOKUP_TABLE.invert
+LOOKUP_TABLE.each_pair {|k, c| (LOOKUP_TABLE.store(k, CGI.escape(c))) if should_be_encoded(c)}
+puts LOOKUP_TABLE.inspect
+
+class Array
+  def mixup
+    mixed = Array.new
+  end
+end
