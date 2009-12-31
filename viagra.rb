@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'sinatra'
-require 'chars'
 require 'haml'
 require 'cgi'
 require 'helpers/application'
@@ -26,10 +25,8 @@ end
 get '/*' do
   @long_url = params[:splat]
   @original_url, @temp = '', ''
-  puts @reverse_lookup_table.inspect
   @long_url.first.each_char do |c|
     @temp << @reverse_lookup_table[c] 
-    puts "#{c} => #{@reverse_lookup_table[c]}"
   end 
   strip = true
   @temp.each_byte do |c|
