@@ -33,6 +33,7 @@ post '/decode' do
 end
 
 get '/*' do
+  puts 'this happens'
   @long_url = params[:splat]
   @original_url, @temp = '', ''
   @long_url.first.each_char do |c|
