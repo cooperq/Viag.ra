@@ -6,6 +6,6 @@ Sinatra::Application.default_options.merge!(
   :env => 'production'
 )
 
-require 'main'
+require 'app'
 run Sinatra.application
 
