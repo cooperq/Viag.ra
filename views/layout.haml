@@ -10,6 +10,16 @@
   %body
     #container
       #main
+        .decode-text
+          Decode an already shortened URL.
+        .decode-form
+          %form{ :action => 'decode', :method=>'POST' }
+            %input{ :type => 'text', :name=>'short_url', :value=>params[:short_url] }
+            %button{ :type => 'submit', :name=>'submit', :src=>'/img/pill.jpg' }
+        .or
+          OR
+        .lengthen-text
+          Create a rediculously long URL:
         .lengthen-form
           %form{ :action => 'lengthify', :method=>'POST' }
             %input{ :type => 'text', :name=>'original_url', :value=>params[:original_url] }

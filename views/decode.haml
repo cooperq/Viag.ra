@@ -1,0 +1,10 @@
+-if @long_url
+  %h1
+    This shortened URL resolves to.....
+    %br
+    .url
+      %a{ :href => @long_url }
+        =@long_url
+-else
+  %h1 
+    This doesn't seem to be a shortened URL
