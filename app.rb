@@ -44,5 +44,6 @@ get '/*' do
     strip = !strip
   end
   (@original_url = 'http://' + @original_url) unless @original_url.match(/^https?:\/\//)
+  puts 'error happens'
   redirect @original_url, 307
 end
