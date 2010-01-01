@@ -5,7 +5,5 @@ So I wrote a url lengthener to counter this problem.  And I'm making it open sou
 
 TODO:
 ----------
-* logo for the top
 * copy for why the hell I did this
-* bug with 'q' and query strings
 * unit tests
