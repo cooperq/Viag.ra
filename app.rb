@@ -15,7 +15,7 @@ get '/' do
 end
 
 post '/lengthify' do
-  @base_url = 'http://localhost:4567/'
+  @base_url = 'http://' + request.env['HTTP_HOST'] + '/'
   @long_url = ''
   @original_url = params[:original_url]
   @original_url.each_byte do |c|
@@ -33,7 +33,6 @@ post '/decode' do
 end
 
 get '/*' do
-  puts 'this happens'
   @long_url = params[:splat]
   @original_url, @temp = '', ''
   @long_url.first.each_char do |c|
@@ -45,6 +44,5 @@ get '/*' do
     strip = !strip
   end
   (@original_url = 'http://' + @original_url) unless @original_url.match(/^https?:\/\//)
-  puts 'error happens'
   redirect @original_url, 307
 end

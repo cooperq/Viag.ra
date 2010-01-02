@@ -5,7 +5,8 @@ def transliterate(c)
 end
 
 def should_be_encoded(character)
-  ['$', '>', '<', '!', '+', ',', '|', ';', '?', '#', '@', '/', '&', ':', '=', '\'', '"', '%'].include? character
+  #['$', '>', '<', '!', '+', ',', '|', ';', '?', '#', '@', '/', '&', ':', '=', '\'', '"', '%'].include? character
+  true
 end
 
 def generate_lookup_tables
