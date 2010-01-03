@@ -12,6 +12,9 @@ def generate_lookup_tables
   @letters = ascii_printable_chars
   @lookup_table = {}
   @letters_random = @letters.satan_shuffle
+  #we delete ^ from being encoded and / from being encoded to because if there is a / in the URL passenger treates it as a real slash even if it is urlencoded
+  @letters.delete_if{|c| c == '^' }
+  @letters_random.delete_if{|c| c == '/' }
 
   @letters.each_with_index {|k,i| @lookup_table[k] = @letters_random[i]}
   
