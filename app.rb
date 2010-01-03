@@ -33,7 +33,6 @@ post '/decode' do
 end
 
 get '/*' do
-  puts 'this happens'
   @long_url = params[:splat]
   @original_url, @temp = '', ''
   @long_url.first.each_char do |c|
@@ -45,6 +44,5 @@ get '/*' do
     strip = !strip
   end
   (@original_url = 'http://' + @original_url) unless @original_url.match(/^https?:\/\//)
-  puts 'error happens'
   redirect @original_url, 307
 end
