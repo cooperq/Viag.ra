@@ -15,7 +15,7 @@ get '/' do
 end
 
 post '/lengthify' do
-  @base_url = 'http://localhost:4567/'
+  @base_url = 'http://' + request.env['HTTP_HOST'] + '/'
   @long_url = ''
   @original_url = params[:original_url]
   @original_url.each_byte do |c|
